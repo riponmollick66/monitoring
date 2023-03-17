@@ -1,0 +1,11 @@
+[[inputs.ping]]
+#interval = "60s"
+urls = ["google.com",
+        "amd.com",
+        "facebook.com",
+         "youtube.com",
+        "amazon.com",
+        "twitter.com",
+        "192.168.100.241"]
+count = 3
+timeout = 2.0
