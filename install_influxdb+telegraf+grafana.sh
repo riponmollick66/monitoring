@@ -1,25 +1,27 @@
-# Adding Repository
+# Install basic packages
+#====#===========#========
 /usr/bin/apt update	-y ;
 /usr/bin/apt install -y curl gnupg wget	;
-/usr/bin/curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add - ;
-source /etc/lsb-release ;
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list ;
-/usr/bin/wget -q https://repos.influxdata.com/influxdb.key	;
-echo '23a1c8836f0afc5ed24e0486339d7cc8f6790b83886c4c96995b88a061c5bb5d influxdb.key' | sha256sum -c && cat influxdb.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list ;
+# # Adding Repository
+#====#===========#=====
+/usr/bin/wget -q https://repos.influxdata.com/influxdata-archive_compat.key
+echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 /usr/bin/apt-get install -y adduser libfontconfig1	;
-/usr/bin/wget https://dl.grafana.com/enterprise/release/grafana-enterprise_9.4.3_amd64.deb	;
+/usr/bin/wget https://dl.grafana.com/oss/release/grafana_9.3.1_amd64.deb	;
 
 # Install required packages
+#====#===========#===========
 /usr/bin/apt update	-y ;
 /usr/bin/apt-get install -y influxdb telegraf;
-/usr/bin/dpkg -i grafana-enterprise_9.4.3_amd64.deb	;
+/usr/bin/dpkg -i grafana_9.3.1_amd64.deb	;
 
 # Load the new service file
 /bin/systemctl daemon-reload	;
 
-# Start services at boot
-/bin/systemctl enable influxdb telegraf grafana-server;
+# Start the services
+#====#===========#====
+/bin/systemctl start influxdb	;
 
 # Add user to Influxdb
 #====#===========#===========
@@ -50,6 +52,10 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxda
 # Restart the services
 #====#===========#===========
 /bin/systemctl restart influxdb telegraf grafana-server	;
+
+# Start services at boot
+#========#==========#=====
+/bin/systemctl enable influxdb telegraf grafana-server;
 
 # Show services status
 #====#===========#===========
