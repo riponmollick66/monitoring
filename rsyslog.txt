@@ -9,7 +9,6 @@ chown syslog:adm /var/log/network-logs/logs-archive
 #=====#=====#====
 nano /etc/rsyslog.d/network-logs.conf
 
-## /etc/rsyslog.d/network-logs.conf
 #################
 #### MODULES ####
 #################
