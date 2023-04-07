@@ -41,3 +41,11 @@ nano /etc/logrotate.d/network-logs
                 /usr/lib/rsyslog/rsyslog-rotate
         endscript
 }
+
+# Restart service
+#=======#========#==
+/bin/systemctl restart rsyslog	;
+
+# Show service status
+#=======#========#==
+/bin/systemctl status rsyslog	;
