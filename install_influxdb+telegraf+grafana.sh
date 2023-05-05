@@ -24,31 +24,6 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
 #====#===========#====
 /bin/systemctl start influxdb	;
 
-# Add user to Influxdb
-#====#===========#===========
- influx	
- CREATE USER "admin" WITH PASSWORD 'admin' WITH ALL PRIVILEGES
- show users
- exit
-
-# Configuring Influxbd Authentication
-#=============#==============#==========
-sudo nano /etc/influxdb/influxdb.conf
-# Locate the [http] section, uncomment the auth-enabled option, and set its value to true
-
-# Configuring Telegraf
-#====#===========#===========
-nano /etc/telegraf/telegraf.conf
-# Locate the [outputs.influxdb] section and provide the username and password
-
-
-# See telegraf storing in the database
-#=============#==============#==========
- influx -username 'admin' -password 'admin'
- show databases
- use telegraf
- show measurements
- exit
 
 # Restart the services
 #====#===========#===========
