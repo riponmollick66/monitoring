@@ -3,8 +3,8 @@
 sudo groupadd --system prometheus	;
 sudo useradd -s /sbin/nologin --system -g prometheus prometheus	;
 sudo mkdir /var/lib/prometheus	;
-for i in rules rules.d files_sd; do sudo mkdir -p /etc/prometheus/${i}; done	;
-cd /opt/prometheus	;
+sudo mkdir -p /etc/prometheus	;
+cd /opt	;
 /usr/bin/wget https://github.com/prometheus/prometheus/releases/download/v2.42.0/prometheus-2.42.0.linux-amd64.tar.gz	;
 tar xvf prometheus*.tar.gz	;
 cd prometheus*	;
@@ -41,8 +41,8 @@ EOF
 
 # Set Permissions
 #======#=====#=====
-for i in rules rules.d files_sd; do sudo chown -R prometheus:prometheus /etc/prometheus/${i}; done
-for i in rules rules.d files_sd; do sudo chmod -R 775 /etc/prometheus/${i}; done
+sudo chown -R prometheus:prometheus /etc/prometheus/
+sudo chmod -R 775 /etc/prometheus/
 sudo chown -R prometheus:prometheus /var/lib/prometheus/
 
 # Reload services file
